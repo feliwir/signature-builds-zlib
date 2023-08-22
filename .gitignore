@@ -3,3 +3,5 @@ zlib-*/
 build-*/
 install-*/
 objects-*/
+/*.pat
+/*.sha1

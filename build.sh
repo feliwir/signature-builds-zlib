@@ -18,6 +18,7 @@ do
   ninja -C build-$TOOLCHAIN install
   mkdir -p objects-$TOOLCHAIN
   ar x ./install-$TOOLCHAIN/lib/$LIB_NAME --output objects-$TOOLCHAIN
-  find objects-$TOOLCHAIN/ -type f -name "*.o" | xargs -I % rz-sign -o %.pat %
-  python generate-pat.py --auto --recursive -d objects-$TOOLCHAIN/ -o zlib-$TOOLCHAIN.pat
+  sha1sum ./install-$TOOLCHAIN/lib/$LIB_NAME >> zlib.sha1
+  find objects-$TOOLCHAIN/ -type f -name "*.o" | xargs -I % rz-sign -e flirt.node.optimize=0 -o %.pat %
+  python generate-pat.py --auto --overwrite --recursive -d objects-$TOOLCHAIN/ -o zlib-$TOOLCHAIN.pat
 done
